@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///home/tanpisitpt/projects/dockers/s8-multi-container/complex/.github/workflows/deploy.yaml"
+  }
+}

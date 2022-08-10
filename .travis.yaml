@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t tanpisitpt/client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run tanpisitpt/client-test npm test -- --coverage
+
+after_success:
+  - docker build -t tanpisitpt/multi-client ./client
+  - docker build -t tanpisitpt/multi-nginx ./nginx
+  - docker build -t tanpisitpt/multi-server ./server
+  - docker build -t tanpisitpt/multi-worker ./worker
