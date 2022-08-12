@@ -5,23 +5,27 @@
       "name": "client",
       "image": "tanpisitpt/s10-client",
       "hostname": "client",
+      "memory": 128,
       "essential": false
     },
     {
       "name": "server",
       "image": "tanpisitpt/s10-server",
       "hostname": "api",
+      "memory": 128,
       "essential": false
     },
     {
       "name": "worker",
       "image": "tanpisitpt/s10-worker",
+      "memory": 128,
       "essential": false
     },
     {
       "name": "nginx",
       "image": "tanpisitpt/s10-nginx",
       "hostname": "nginx",
+      "memory": 128,
       "essential": true,
       "portMappings": [
         {
