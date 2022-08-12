@@ -6,32 +6,39 @@ const Fib = () => {
   const [values, setValues] = useState({})
   const [index, setIndex] = useState('')
 
+  async function fetchValues() {
+    const res = await axios.get('/api/values/current')
+    setValues(res.data)
+  }
+
+  async function fetchIndexes() {
+    const res = await axios.get('/api/values/all')
+    setSeenIndexes(res.data)
+  }
+
   useEffect(() => {
-    async function fetchValues() {
-      const res = await axios.get('/api/values/current')
-      setValues(res.data)
-    }
-
-    async function fetchIndexes() {
-      const res = await axios.get('/api/values/all')
-      setSeenIndexes(res.data)
-    }
-
     fetchValues()
     fetchIndexes()
+    console.log('useEffect!')
   }, [])
 
   async function handleSubmit(e) {
     e.preventDefault()
-    console.log('submit')
     await axios.post('/api/values', { index })
     setIndex('')
+    fetchValues()
+    fetchIndexes()
+  }
+
+  function handleRefresh() {
+    fetchValues()
+    fetchIndexes()
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>EEEnter your index: </label>
+        <label>Enter your index: </label>
         <input value={index} onChange={(e) => { setIndex(e.target.value) }} />
         <button>submit</button>
       </form>
@@ -50,6 +57,9 @@ const Fib = () => {
           </div>
         )
       })}
+
+      <p></p>
+      <button onClick={handleRefresh}>refresh</button>
     </div>
   )
 }
